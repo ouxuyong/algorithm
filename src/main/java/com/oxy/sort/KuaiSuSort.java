@@ -24,29 +24,33 @@ public class KuaiSuSort {
     }
 
     private static int[] quickSort(int[] arr, int left, int right) {
-        if(left < right){
-            int index = partition(arr,left,right);
-            quickSort(arr,left,index-1);
-            quickSort(arr,index+1,right);
+        if(left >= right){
+           return arr;
         }
+        int i ,j ,temp;
+        i = left;
+        j = right;
+        temp = arr[left];
+        while (i < j){
+            while (arr[j] >= temp && i < j){
+                j--;
+            }
+            while (arr[i] <= temp && i < j){
+                i++;
+            }
+            if(i < j){
+                int t = arr[i];
+                arr[i] = arr[j];
+                arr[j] = t;
+            }
+        }
+        arr[left] = arr[i];
+        arr[i] = temp;
+
+        quickSort(arr,left,i-1);
+        quickSort(arr,j+1,right);
         return arr;
     }
 
-    private static int partition(int[] arr, int left, int right) {
-        int temp = arr[left];
-        int mark = left;
-        for(int i = mark; i <= right; i++){
-            if(arr[i] < temp){
-                if(i != mark){
-                    int tempMark = arr[mark];
-                    arr[mark] = arr[i];
-                    arr[i] = tempMark;
-                }
-                mark = i;
-            }
-        }
-
-        return mark;
-    }
 
 }
