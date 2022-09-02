@@ -48,8 +48,17 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class SolutionRelated {
+    public static void main(String[] args) {
+        boolean palindrome = isPalindrome(1001);
+        System.out.println(palindrome);
+    }
 
-    public boolean isPalindrome(int num){
+    /**
+     * 字符串解法
+     * @param num
+     * @return
+     */
+    public static boolean isPalindrome(int num){
         String string = Integer.toString(num);
         int left = 0;
         int right = string.length()-1;
@@ -62,5 +71,36 @@ class SolutionRelated {
         }
         return true;
     }
+
+    /**
+     * 第二种 不用字符串的解法 （看的其他人的题解）
+     * 作者：reedfan
+     *  链接：https://leetcode.cn/problems/palindrome-number/solution/ji-bai-liao-99de-javayong-hu-dai-ma-you-ya-by-reed/
+     *  来源：力扣（LeetCode）
+     *  著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     * @param x
+     * @return
+     */
+    public static boolean isPalindrome2(int x) {
+        if (x < 0) {
+            return false;
+        }
+        int help = 1;
+        int tmp = x;
+        while (tmp >= 10) {
+            help *= 10;
+            tmp /= 10;
+        }
+        while (x != 0) {
+            if (x % 10 != x / help) {
+                return false;
+            }
+            x = x % help / 10;
+            help /= 100;
+        }
+        return true;
+    }
+
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
