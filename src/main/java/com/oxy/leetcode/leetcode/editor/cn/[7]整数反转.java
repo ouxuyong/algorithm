@@ -44,12 +44,21 @@
 // 👍 3613 👎 0
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 //leetcode submit region begin(Prohibit modification and deletion)
 class ReverseSolution {
     public static void main(String[] args) {
         int num = reverse(1232);
         System.out.println(num);
     }
+
+    /**
+     * 利用字符串反转
+     * @param x
+     * @return
+     */
     public static int reverse(int x) {
         String str = Integer.toString(x);
         char[] chars = str.toCharArray();
@@ -68,5 +77,33 @@ class ReverseSolution {
 
         return aLong.intValue();
     }
+
+    /**
+     * 将整数依次除以10求余，将余数存到list中，然后依次取出 * list.size() - 1 - i 次幂并相加
+     * @param num
+     * @return
+     */
+    public static int reverse2(int num) {
+        int temp = num;
+        int sign = 10;
+        List<Integer> list = new ArrayList<Integer>();
+        while (temp != 0) {
+            int i = temp % sign;
+            list.add(i);
+            temp = temp / sign;
+        }
+        Double sum = 0.0;
+        double pow;
+        for (int i = 0; i < list.size(); i++) {
+            int index = list.size() - 1 - i;
+            pow = Math.pow(10, index);
+            sum += list.get(i) * pow;
+        }
+        if(sum > Integer.MAX_VALUE || sum < Integer.MIN_VALUE){
+            return 0;
+        }
+        return sum.intValue();
+    }
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
